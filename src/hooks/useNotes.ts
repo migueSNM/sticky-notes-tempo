@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Note } from '../types'
+import type { Note } from '../types'
 import { DEFAULT_NOTE_COLOR } from '../constants'
 
 const DEFAULT_WIDTH = 200

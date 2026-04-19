@@ -1,5 +1,5 @@
 import { useRef, useCallback, useState } from 'react'
-import { DragState } from '../types'
+import type { DragState } from '../types'
 
 const MIN_WIDTH = 120
 const MIN_HEIGHT = 80

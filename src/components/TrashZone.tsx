@@ -3,7 +3,7 @@ import './TrashZone.css'
 
 interface TrashZoneProps {
   isActive: boolean;
-  trashRef: React.RefObject<HTMLDivElement>;
+  trashRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export function TrashZone({ isActive, trashRef }: TrashZoneProps) {

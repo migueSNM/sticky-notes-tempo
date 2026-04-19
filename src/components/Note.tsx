@@ -1,6 +1,6 @@
 import React from 'react'
 import './Note.css'
-import { Note as NoteType } from '../types'
+import type { Note as NoteType } from '../types'
 
 interface NoteProps {
   note: NoteType;
