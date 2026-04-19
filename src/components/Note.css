@@ -1,0 +1,44 @@
+.note {
+  position: absolute;
+  border-radius: 4px;
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.18), 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.note__header {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  background: rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+}
+
+.note__dots {
+  display: flex;
+  gap: 5px;
+}
+
+.note__dots span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  display: block;
+}
+
+.note__body {
+  flex: 1;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.note__content {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #1f1f1f;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
