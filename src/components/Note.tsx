@@ -8,15 +8,17 @@ interface NoteProps {
   onStartMove: (noteId: string, e: React.MouseEvent) => void;
   onStartResize: (noteId: string, e: React.MouseEvent) => void;
   onContentChange: (noteId: string, content: string) => void;
+  onBringToFront: (noteId: string) => void;
 }
 
-export function Note({ note, isDragging, onStartMove, onStartResize, onContentChange }: NoteProps) {
+export function Note({ note, isDragging, onStartMove, onStartResize, onContentChange, onBringToFront }: NoteProps) {
   const { x, y, width, height, color, zIndex } = note
 
   return (
     <div
       className={`note${isDragging ? ' note--dragging' : ''}`}
       style={{ left: x, top: y, width, height, background: color, zIndex }}
+      onMouseDown={() => onBringToFront(note.id)}
     >
       <div
         className="note__header"

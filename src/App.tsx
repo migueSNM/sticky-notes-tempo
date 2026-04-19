@@ -40,6 +40,7 @@ function App() {
             onStartMove={startMove}
             onStartResize={startResize}
             onContentChange={(id, content) => updateNote(id, { content })}
+            onBringToFront={bringToFront}
           />
         ))}
       </Board>
