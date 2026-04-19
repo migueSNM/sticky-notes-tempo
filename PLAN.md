@@ -6,7 +6,7 @@ This document captures the upfront plan that was designed before writing any cod
 
 ## Context
 
-Build a sticky-notes SPA for a job interview. The interviewer will assess UI design, architecture, and TypeScript/React skills. The app must be built with Vite + React + TypeScript, no stock component libraries, pushed to GitHub with one commit per feature. All 4 core features + all 4 bonus features were planned from the start.
+Build a sticky-notes SPA considering UI design, architecture, and TypeScript/React skills. The app must be built with Vite + React + TypeScript, no stock component libraries, pushed to GitHub with one commit per feature. All 4 core features + all 4 bonus features were planned from the start.
 
 ---
 
@@ -114,7 +114,7 @@ export interface DragState {
 ## Implementation Notes
 
 - **No stock components or icon libraries** — trash icon via inline SVG, no MUI/shadcn/etc.
-- **CSS**: Plain CSS files per component (no CSS-in-JS, no Tailwind) — keeps it readable for an interview reviewer.
+- **CSS**: Plain CSS files per component (no CSS-in-JS, no Tailwind) — keeps it readable.
 - **Drag**: Attach `mousemove`/`mouseup` to `document` (not the note element) to handle fast cursor movement outside the note.
 - **Drag state in a ref**: `useRef` instead of `useState` for the active drag snapshot avoids triggering re-renders on every `mousemove`.
 - **Resize constraints**: min `width: 120px`, min `height: 80px`.
