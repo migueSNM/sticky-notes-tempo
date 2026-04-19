@@ -1,0 +1,35 @@
+.trash-zone {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  border: 2px dashed #9ca3af;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  pointer-events: none;
+}
+
+.trash-zone__icon {
+  width: 30px;
+  height: 30px;
+  color: #9ca3af;
+  transition: color 0.2s;
+}
+
+.trash-zone--active {
+  background: rgba(254, 202, 202, 0.95);
+  border-color: #ef4444;
+  border-style: solid;
+  transform: scale(1.12);
+}
+
+.trash-zone--active .trash-zone__icon {
+  color: #ef4444;
+}

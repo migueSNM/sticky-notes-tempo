@@ -7,11 +7,24 @@ const MIN_HEIGHT = 80
 interface UseDragOptions {
   onMove: (id: string, x: number, y: number) => void;
   onResize: (id: string, width: number, height: number) => void;
+  onRemove: (id: string) => void;
+  trashRef: React.RefObject<HTMLDivElement | null>;
 }
 
-export function useDrag({ onMove, onResize }: UseDragOptions) {
+function isOverElement(clientX: number, clientY: number, el: HTMLElement): boolean {
+  const rect = el.getBoundingClientRect()
+  return (
+    clientX >= rect.left &&
+    clientX <= rect.right &&
+    clientY >= rect.top &&
+    clientY <= rect.bottom
+  )
+}
+
+export function useDrag({ onMove, onResize, onRemove, trashRef }: UseDragOptions) {
   const dragRef = useRef<DragState | null>(null)
   const [draggingNoteId, setDraggingNoteId] = useState<string | null>(null)
+  const [isOverTrash, setIsOverTrash] = useState(false)
 
   const startMove = useCallback((noteId: string, e: React.MouseEvent) => {
     e.preventDefault()
@@ -36,18 +49,26 @@ export function useDrag({ onMove, onResize }: UseDragOptions) {
       const dx = ev.clientX - state.startMouseX
       const dy = ev.clientY - state.startMouseY
       onMove(noteId, state.startNoteX + dx, state.startNoteY + dy)
+      if (trashRef.current) {
+        setIsOverTrash(isOverElement(ev.clientX, ev.clientY, trashRef.current))
+      }
     }
 
-    function onMouseUp() {
+    function onMouseUp(ev: MouseEvent) {
+      const state = dragRef.current
+      if (state && trashRef.current && isOverElement(ev.clientX, ev.clientY, trashRef.current)) {
+        onRemove(noteId)
+      }
       dragRef.current = null
       setDraggingNoteId(null)
+      setIsOverTrash(false)
       document.removeEventListener('mousemove', onMouseMove)
       document.removeEventListener('mouseup', onMouseUp)
     }
 
     document.addEventListener('mousemove', onMouseMove)
     document.addEventListener('mouseup', onMouseUp)
-  }, [onMove])
+  }, [onMove, onRemove, trashRef])
 
   const startResize = useCallback((noteId: string, e: React.MouseEvent) => {
     e.preventDefault()
@@ -86,5 +107,5 @@ export function useDrag({ onMove, onResize }: UseDragOptions) {
     document.addEventListener('mouseup', onMouseUp)
   }, [onResize])
 
-  return { startMove, startResize, draggingNoteId }
+  return { startMove, startResize, draggingNoteId, isOverTrash }
 }

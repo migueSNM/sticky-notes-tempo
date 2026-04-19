@@ -4,16 +4,17 @@ import { Note as NoteType } from '../types'
 
 interface NoteProps {
   note: NoteType;
+  isDragging: boolean;
   onStartMove: (noteId: string, e: React.MouseEvent) => void;
   onStartResize: (noteId: string, e: React.MouseEvent) => void;
 }
 
-export function Note({ note, onStartMove, onStartResize }: NoteProps) {
+export function Note({ note, isDragging, onStartMove, onStartResize }: NoteProps) {
   const { x, y, width, height, color, zIndex } = note
 
   return (
     <div
-      className="note"
+      className={`note${isDragging ? ' note--dragging' : ''}`}
       style={{ left: x, top: y, width, height, background: color, zIndex }}
     >
       <div
