@@ -3,11 +3,16 @@ import { Board } from './components/Board'
 import { Note } from './components/Note'
 import { Toolbar } from './components/Toolbar'
 import { useNotes } from './hooks/useNotes'
+import { useDrag } from './hooks/useDrag'
 import './App.css'
 
 function App() {
-  const { notes, createNote } = useNotes()
+  const { notes, createNote, updateNote } = useNotes()
   const [selectedColor, setSelectedColor] = useState('#fef08a')
+
+  const { startMove } = useDrag({
+    onMove: (id, x, y) => updateNote(id, { x, y }),
+  })
 
   function handleBoardDoubleClick(x: number, y: number) {
     createNote(x, y, selectedColor)
@@ -23,7 +28,11 @@ function App() {
     <div className="app">
       <Board onDoubleClick={handleBoardDoubleClick}>
         {notes.map(note => (
-          <Note key={note.id} note={note} />
+          <Note
+            key={note.id}
+            note={note}
+            onStartMove={startMove}
+          />
         ))}
       </Board>
       <Toolbar
