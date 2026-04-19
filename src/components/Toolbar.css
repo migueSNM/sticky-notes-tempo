@@ -15,6 +15,7 @@
 }
 
 .toolbar__add {
+  position: relative;
   width: 32px;
   height: 32px;
   border-radius: 8px;
@@ -37,6 +38,18 @@
 
 .toolbar__add:active {
   transform: scale(0.95);
+}
+
+.toolbar__add-preview {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--preview-color, #fef08a);
+  border: 1.5px solid white;
+  pointer-events: none;
 }
 
 .toolbar__divider {

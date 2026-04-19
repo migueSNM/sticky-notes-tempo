@@ -5,11 +5,12 @@ import { Toolbar } from './components/Toolbar'
 import { TrashZone } from './components/TrashZone'
 import { useNotes } from './hooks/useNotes'
 import { useDrag } from './hooks/useDrag'
+import { DEFAULT_NOTE_COLOR } from './constants'
 import './App.css'
 
 function App() {
   const { notes, createNote, updateNote, removeNote, bringToFront } = useNotes()
-  const [selectedColor, setSelectedColor] = useState('#fef08a')
+  const [selectedColor, setSelectedColor] = useState(DEFAULT_NOTE_COLOR)
   const trashRef = useRef<HTMLDivElement>(null)
 
   const { startMove, startResize, draggingNoteId, isOverTrash } = useDrag({

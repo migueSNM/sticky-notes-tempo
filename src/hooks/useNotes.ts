@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Note } from '../types'
+import { DEFAULT_NOTE_COLOR } from '../constants'
 
 const DEFAULT_WIDTH = 200
 const DEFAULT_HEIGHT = 160
@@ -26,7 +27,7 @@ export function useNotes() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(notes))
   }, [notes])
 
-  function createNote(x: number, y: number, color: string): Note {
+  function createNote(x: number, y: number, color: string = DEFAULT_NOTE_COLOR): Note {
     const note: Note = {
       id: generateId(),
       x,
