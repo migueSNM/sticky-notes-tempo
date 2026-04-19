@@ -5,9 +5,10 @@ import { Note as NoteType } from '../types'
 interface NoteProps {
   note: NoteType;
   onStartMove: (noteId: string, e: React.MouseEvent) => void;
+  onStartResize: (noteId: string, e: React.MouseEvent) => void;
 }
 
-export function Note({ note, onStartMove }: NoteProps) {
+export function Note({ note, onStartMove, onStartResize }: NoteProps) {
   const { x, y, width, height, color, zIndex } = note
 
   return (
@@ -26,6 +27,10 @@ export function Note({ note, onStartMove }: NoteProps) {
       <div className="note__body">
         <span className="note__content">{note.content || ''}</span>
       </div>
+      <div
+        className="note__resize-handle"
+        onMouseDown={e => onStartResize(note.id, e)}
+      />
     </div>
   )
 }

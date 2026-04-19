@@ -10,8 +10,9 @@ function App() {
   const { notes, createNote, updateNote } = useNotes()
   const [selectedColor, setSelectedColor] = useState('#fef08a')
 
-  const { startMove } = useDrag({
+  const { startMove, startResize } = useDrag({
     onMove: (id, x, y) => updateNote(id, { x, y }),
+    onResize: (id, width, height) => updateNote(id, { width, height }),
   })
 
   function handleBoardDoubleClick(x: number, y: number) {
@@ -32,6 +33,7 @@ function App() {
             key={note.id}
             note={note}
             onStartMove={startMove}
+            onStartResize={startResize}
           />
         ))}
       </Board>
