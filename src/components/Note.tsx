@@ -7,9 +7,10 @@ interface NoteProps {
   isDragging: boolean;
   onStartMove: (noteId: string, e: React.MouseEvent) => void;
   onStartResize: (noteId: string, e: React.MouseEvent) => void;
+  onContentChange: (noteId: string, content: string) => void;
 }
 
-export function Note({ note, isDragging, onStartMove, onStartResize }: NoteProps) {
+export function Note({ note, isDragging, onStartMove, onStartResize, onContentChange }: NoteProps) {
   const { x, y, width, height, color, zIndex } = note
 
   return (
@@ -26,7 +27,13 @@ export function Note({ note, isDragging, onStartMove, onStartResize }: NoteProps
         </span>
       </div>
       <div className="note__body">
-        <span className="note__content">{note.content || ''}</span>
+        <textarea
+          className="note__textarea"
+          value={note.content}
+          placeholder="Type something..."
+          onChange={e => onContentChange(note.id, e.target.value)}
+          onMouseDown={e => e.stopPropagation()}
+        />
       </div>
       <div
         className="note__resize-handle"

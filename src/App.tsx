@@ -8,7 +8,7 @@ import { useDrag } from './hooks/useDrag'
 import './App.css'
 
 function App() {
-  const { notes, createNote, updateNote, removeNote } = useNotes()
+  const { notes, createNote, updateNote, removeNote, bringToFront } = useNotes()
   const [selectedColor, setSelectedColor] = useState('#fef08a')
   const trashRef = useRef<HTMLDivElement>(null)
 
@@ -39,6 +39,7 @@ function App() {
             isDragging={draggingNoteId === note.id}
             onStartMove={startMove}
             onStartResize={startResize}
+            onContentChange={(id, content) => updateNote(id, { content })}
           />
         ))}
       </Board>
