@@ -1,18 +1,32 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Note } from '../types'
 
 const DEFAULT_WIDTH = 200
 const DEFAULT_HEIGHT = 160
-const DEFAULT_COLOR = '#fef08a'
+const STORAGE_KEY = 'sticky-notes-tempo'
 
 function generateId(): string {
   return `note-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`
 }
 
-export function useNotes() {
-  const [notes, setNotes] = useState<Note[]>([])
+function loadFromStorage(): Note[] {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (!raw) return []
+    return JSON.parse(raw) as Note[]
+  } catch {
+    return []
+  }
+}
 
-  function createNote(x: number, y: number, color: string = DEFAULT_COLOR): Note {
+export function useNotes() {
+  const [notes, setNotes] = useState<Note[]>(loadFromStorage)
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(notes))
+  }, [notes])
+
+  function createNote(x: number, y: number, color: string): Note {
     const note: Note = {
       id: generateId(),
       x,
